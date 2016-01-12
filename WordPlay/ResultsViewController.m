@@ -23,10 +23,28 @@
     
 }
 
+
 - (void)storyMaker
 {
-    self.resultsTextView.text = [NSString stringWithFormat:@"Hi my name is %@ and I'm %@. I work %@ if there is %@ in the room.", self.story.name, self.story.adjective, self.story.adverb, self.story.noun];
+    NSString *story = [NSString stringWithFormat:@"Hi my name is %@ and I'm %@. I work %@ if there is %@ in the room.", self.story.name, self.story.adjective, self.story.adverb, self.story.noun];
+    
+    NSRange nameRange = [story rangeOfString:self.story.name];
+    NSRange adjectiveRange = [story rangeOfString:self.story.adjective];
+    NSRange adverbRange = [story rangeOfString:self.story.adverb];
+    NSRange nounRange = [story rangeOfString:self.story.noun];
+
+    UIFont *fontText = [UIFont boldSystemFontOfSize:14];
+    NSDictionary *dictBoldText = [NSDictionary dictionaryWithObjectsAndKeys:fontText, NSFontAttributeName, nil];
+    
+    NSMutableAttributedString *mutAttrTextViewString = [[NSMutableAttributedString alloc] initWithString:story];
+    [mutAttrTextViewString setAttributes:dictBoldText range:nameRange];
+    [mutAttrTextViewString addAttributes:dictBoldText range:adjectiveRange];
+    [mutAttrTextViewString addAttributes:dictBoldText range:adverbRange];
+    [mutAttrTextViewString addAttributes:dictBoldText range:nounRange];
+    
+    [self.resultsTextView setAttributedText:mutAttrTextViewString];
 }
+
 
 
 
